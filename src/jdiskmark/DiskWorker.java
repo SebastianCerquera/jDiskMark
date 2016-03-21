@@ -65,13 +65,13 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         
         if(App.writeTest) {
             if (App.multiFile == false) {
-                testFile = new File(dataDir.getAbsolutePath()+File.separator+"testdata.bdm");
+                testFile = new File(dataDir.getAbsolutePath()+File.separator+"testdata.jdm");
             }            
             for (int m=startFileNum; m<startFileNum+App.numOfFiles && !isCancelled(); m++) {
                 
                 if (App.multiFile == true) {
                     testFile = new File(dataDir.getAbsolutePath()
-                            + File.separator+"testdata"+m+".bdm");
+                            + File.separator+"testdata"+m+".jdm");
                 }   
                 wMark = new DiskMark(WRITE);
                 wMark.markNum = m;
@@ -132,7 +132,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 
                 if (App.multiFile == true) {
                     testFile = new File(dataDir.getAbsolutePath()
-                            + File.separator+"testdata"+m+".bdm");
+                            + File.separator+"testdata"+m+".jdm");
                 }
                 rMark = new DiskMark(READ);
                 rMark.markNum = m;
@@ -178,13 +178,13 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
     
     @Override
     protected void process(List<DiskMark> markList) {
-        for (DiskMark m : markList) {
+        markList.stream().forEach((m) -> {
             if (m.type==DiskMark.MarkType.WRITE) {
                 Gui.addWriteMark(m);
             } else {
                 Gui.addReadMark(m);
             }
-        }
+        });
     }
     
     @Override
