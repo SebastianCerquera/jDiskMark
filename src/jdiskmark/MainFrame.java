@@ -47,10 +47,7 @@ public final class MainFrame extends javax.swing.JFrame {
         if      (!App.readTest && App.writeTest) { modeStr = "write"; }
         else if (App.readTest && !App.writeTest) { modeStr = "read"; }
         else if (App.readTest && App.writeTest) { modeStr = "write&read"; }
-        else { msg("WARNING: invalid mode detected"); 
-            msg("App.writeTest:" + App.writeTest);
-            msg("App.readTest:" + App.readTest);
-        }
+        else { msg("WARNING: invalid mode detected"); }
         modeCombo.setSelectedItem(modeStr);
         
         String blockOrderStr = App.randomEnable ? "random":"sequential";
@@ -561,9 +558,9 @@ public final class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
