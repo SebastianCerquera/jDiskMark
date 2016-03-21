@@ -40,7 +40,7 @@ public class App {
     public static boolean autoReset = true;
     public static boolean showMaxMin = true;
     public static boolean readTest = false;
-    public static boolean writeTest = false;
+    public static boolean writeTest = true;
     public static boolean randomEnable = false;
     public static boolean writeSyncEnable = true;
     public static int nextMarkNumber = 1;   // number of the next mark
