@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -27,6 +28,10 @@ public final class MainFrame extends javax.swing.JFrame {
         totalTxProgBar.setValue(0);
         totalTxProgBar.setString("");
         setTitle(getTitle()+" "+App.VERSION);
+        
+        // auto scroll the text area.
+        DefaultCaret caret = (DefaultCaret) msgTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
     /**
