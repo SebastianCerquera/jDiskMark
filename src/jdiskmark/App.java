@@ -21,7 +21,6 @@ import javax.swing.UIManager;
  */
 public class App {
     
-    public static final String VERSION = "v0.1";
     public static final String PROPERTIESFILE = "jdm.properties";
     public static final String DATADIRNAME = "jDiskMarkData";
     public static final int MEGABYTE = 1024 * 1024;
@@ -70,6 +69,24 @@ public class App {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(App::init);
+    }
+    
+    /**
+     * Get the version from the build properties. Defaults to 0.0 if not found.
+     * @return 
+     */
+    public static String getVersion() {
+        Properties bp = new Properties();
+        String version = "0.0";
+        try {
+            bp.load(new FileInputStream("build.properties"));
+            version = bp.getProperty("version");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return version;
     }
     
     public static void init() {
@@ -154,7 +171,7 @@ public class App {
     
     public static String getConfigString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Config for Java Disk Mark ").append(VERSION).append('\n');
+        sb.append("Config for Java Disk Mark ").append(getVersion()).append('\n');
         sb.append("readTest: ").append(readTest).append('\n');
         sb.append("writeTest: ").append(writeTest).append('\n');
         sb.append("locationDir: ").append(locationDir).append('\n');

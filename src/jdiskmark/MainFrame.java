@@ -27,7 +27,7 @@ public final class MainFrame extends javax.swing.JFrame {
         totalTxProgBar.setStringPainted(true);
         totalTxProgBar.setValue(0);
         totalTxProgBar.setString("");
-        setTitle(getTitle()+" "+App.VERSION);
+        setTitle(getTitle()+" "+App.getVersion());
         
         // auto scroll the text area.
         DefaultCaret caret = (DefaultCaret) msgTextArea.getCaret();
@@ -621,7 +621,7 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JOptionPane.showMessageDialog(Gui.mainFrame, 
-                "jDiskMark "+App.VERSION,"About...",JOptionPane.PLAIN_MESSAGE);
+                "jDiskMark "+App.getVersion(),"About...",JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void openLocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openLocButtonActionPerformed

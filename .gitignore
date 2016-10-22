@@ -3,3 +3,6 @@
 /nbproject/private/
 /build/
 /jdm.properties
+/tmp
+*.zip
+/build.properties
