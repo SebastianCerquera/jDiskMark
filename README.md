@@ -26,6 +26,7 @@ v0.1
 v0.2
 
  - auto generate zip release ie. jdiskmark-v0.2.zip
+ - added tabbed pane near bottom to organize new controls
 
 desired features
 
