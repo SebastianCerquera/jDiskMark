@@ -2,6 +2,7 @@
 package jdiskmark;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.text.NumberFormat;
 import javax.swing.JProgressBar;
 import org.jfree.chart.ChartFactory;
@@ -63,7 +64,14 @@ public final class Gui {
         NumberAxis range = (NumberAxis) plot.getDomainAxis();
         range.setNumberFormatOverride(NumberFormat.getNumberInstance());
         chart.getTitle().setVisible(false);
-        chartPanel = new ChartPanel(chart);
+        chartPanel = new ChartPanel(chart) {
+            // Only way to set the size of chart panel
+            // ref: http://www.jfree.org/phpBB2/viewtopic.php?p=75516
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(500, 325);
+            }
+        };
         
         plot.getRenderer().setSeriesPaint(0, Color.YELLOW);
         plot.getRenderer().setSeriesPaint(1, Color.WHITE);

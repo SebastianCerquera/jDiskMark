@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.text.DefaultCaret;
 
 /**
@@ -16,6 +17,8 @@ import javax.swing.text.DefaultCaret;
  */
 public final class MainFrame extends javax.swing.JFrame {
 
+
+    
     /**
      * Creates new form MainFrame
      */
@@ -23,6 +26,8 @@ public final class MainFrame extends javax.swing.JFrame {
         initComponents();
         Gui.createChartPanel();
         mountPanel.setLayout(new BorderLayout());
+        Gui.chartPanel.setSize(mountPanel.getSize());
+        Gui.chartPanel.setSize(mountPanel.getWidth(), 200);
         mountPanel.add(Gui.chartPanel);
         totalTxProgBar.setStringPainted(true);
         totalTxProgBar.setValue(0);
@@ -34,6 +39,10 @@ public final class MainFrame extends javax.swing.JFrame {
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
+    public JPanel getMountPanel() {
+        return mountPanel;
+    }
+    
     /**
      * This method is called when the gui needs to be updated after a new config
      * has been loaded.
@@ -74,38 +83,23 @@ public final class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        chooseButton = new javax.swing.JButton();
-        locationText = new javax.swing.JTextField();
-        openLocButton = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        msgTextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         mountPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        wMinText = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        wMaxText = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        wAvgText = new javax.swing.JTextField();
         numBlocksCombo = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         blockSizeCombo = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
         startButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         numFilesCombo = new javax.swing.JComboBox();
-        totalTxProgBar = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
         modeCombo = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         fileSizeLabel = new javax.swing.JLabel();
-        rMinText = new javax.swing.JTextField();
-        rMaxText = new javax.swing.JTextField();
-        rAvgText = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -113,6 +107,24 @@ public final class MainFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         orderComboBox = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
+        wMinLabel = new javax.swing.JLabel();
+        wMaxLabel = new javax.swing.JLabel();
+        wAvgLabel = new javax.swing.JLabel();
+        rMinLabel = new javax.swing.JLabel();
+        rMaxLabel = new javax.swing.JLabel();
+        rAvgLabel = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        msgTextArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        chooseButton = new javax.swing.JButton();
+        locationText = new javax.swing.JTextField();
+        openLocButton = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        totalTxProgBar = new javax.swing.JProgressBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -134,64 +146,8 @@ public final class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("jDiskMark");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Test Data Location"));
-
-        chooseButton.setText("...");
-        chooseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseButtonActionPerformed(evt);
-            }
-        });
-
-        locationText.setEditable(false);
-
-        openLocButton.setText("Open");
-        openLocButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openLocButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel15.setText("/jDiskMarkData");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(locationText, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(openLocButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(locationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chooseButton)
-                    .addComponent(openLocButton)
-                    .addComponent(jLabel15))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        msgTextArea.setEditable(false);
-        msgTextArea.setColumns(20);
-        msgTextArea.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
-        msgTextArea.setRows(5);
-        msgTextArea.setTabSize(4);
-        jScrollPane1.setViewportView(msgTextArea);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Disk Benchmark"));
-
         mountPanel.setBackground(new java.awt.Color(0, 51, 153));
-        mountPanel.setMaximumSize(new java.awt.Dimension(503, 100));
+        mountPanel.setMaximumSize(new java.awt.Dimension(503, 200));
 
         javax.swing.GroupLayout mountPanelLayout = new javax.swing.GroupLayout(mountPanel);
         mountPanel.setLayout(mountPanelLayout);
@@ -204,20 +160,13 @@ public final class MainFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Write Min");
+        jPanel4.setPreferredSize(new java.awt.Dimension(175, 400));
 
-        wMinText.setEditable(false);
-        wMinText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jLabel1.setText("Write Min");
 
         jLabel2.setText("Write Max");
 
-        wMaxText.setEditable(false);
-        wMaxText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         jLabel3.setText("Write Avg");
-
-        wAvgText.setEditable(false);
-        wAvgText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         numBlocksCombo.setEditable(true);
         numBlocksCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192" }));
@@ -240,9 +189,6 @@ public final class MainFrame extends javax.swing.JFrame {
                 blockSizeComboActionPerformed(evt);
             }
         });
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Total Tx (KB)");
 
         startButton.setText("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -274,15 +220,6 @@ public final class MainFrame extends javax.swing.JFrame {
 
         fileSizeLabel.setText("- -");
 
-        rMinText.setEditable(false);
-        rMinText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        rMaxText.setEditable(false);
-        rMaxText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        rAvgText.setEditable(false);
-        rAvgText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         jLabel10.setText("Read Min");
 
         jLabel11.setText("Read Max");
@@ -309,6 +246,18 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jLabel14.setText("Block Order");
 
+        wMinLabel.setText("- -");
+
+        wMaxLabel.setText("- -");
+
+        wAvgLabel.setText("- -");
+
+        rMinLabel.setText("- -");
+
+        rMaxLabel.setText("- -");
+
+        rAvgLabel.setText("- -");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -316,33 +265,25 @@ public final class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(totalTxProgBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(wMaxText, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(wMinText)
-                            .addComponent(wAvgText))
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rAvgText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10)
-                                    .addComponent(rMaxText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(rMinText, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rMaxLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rMinLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(wAvgLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(wMaxLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(wMinLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(rAvgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -351,7 +292,8 @@ public final class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel14))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 30, Short.MAX_VALUE))
+                            .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(orderComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -393,36 +335,32 @@ public final class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(fileSizeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalTxProgBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wMinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rMinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wMinLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wMaxText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rMaxText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wMaxLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel12))
+                    .addComponent(wAvgLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wAvgText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rAvgText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7))
+                    .addComponent(jLabel10)
+                    .addComponent(rMinLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(rMaxLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(rAvgLabel))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -430,7 +368,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(mountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,8 +375,87 @@ public final class MainFrame extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mountPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 337, Short.MAX_VALUE)
+            .addComponent(mountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        msgTextArea.setEditable(false);
+        msgTextArea.setColumns(20);
+        msgTextArea.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
+        msgTextArea.setRows(5);
+        msgTextArea.setTabSize(4);
+        jScrollPane1.setViewportView(msgTextArea);
+
+        jTabbedPane1.addTab("Event Logs", jScrollPane1);
+
+        chooseButton.setText("...");
+        chooseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseButtonActionPerformed(evt);
+            }
+        });
+
+        locationText.setEditable(false);
+
+        openLocButton.setText("Open");
+        openLocButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openLocButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("/jDiskMarkData");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(locationText, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(openLocButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(locationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseButton)
+                    .addComponent(openLocButton)
+                    .addComponent(jLabel15))
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Data Location", jPanel1);
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Total Tx (KB)");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalTxProgBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(totalTxProgBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         fileMenu.setText("File");
@@ -547,23 +563,21 @@ public final class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator2)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -705,9 +719,12 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField locationText;
     private javax.swing.JComboBox modeCombo;
     private javax.swing.JPanel mountPanel;
@@ -718,17 +735,17 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton openLocButton;
     private javax.swing.JMenu optionMenu;
     private javax.swing.JComboBox orderComboBox;
-    private javax.swing.JTextField rAvgText;
-    private javax.swing.JTextField rMaxText;
-    private javax.swing.JTextField rMinText;
+    private javax.swing.JLabel rAvgLabel;
+    private javax.swing.JLabel rMaxLabel;
+    private javax.swing.JLabel rMinLabel;
     private javax.swing.JButton resetButton;
     private javax.swing.JMenuItem resetSequenceMenuItem;
     private javax.swing.JCheckBoxMenuItem showMaxMinCheckBoxMenuItem;
     private javax.swing.JButton startButton;
     private javax.swing.JProgressBar totalTxProgBar;
-    private javax.swing.JTextField wAvgText;
-    private javax.swing.JTextField wMaxText;
-    private javax.swing.JTextField wMinText;
+    private javax.swing.JLabel wAvgLabel;
+    private javax.swing.JLabel wMaxLabel;
+    private javax.swing.JLabel wMinLabel;
     private javax.swing.JCheckBoxMenuItem writeSyncCheckBoxMenuItem;
     // End of variables declaration//GEN-END:variables
 
@@ -742,10 +759,10 @@ public final class MainFrame extends javax.swing.JFrame {
   
     public void applyTestParams() {
         String modeStr = (String) modeCombo.getSelectedItem();
-        App.readTest = modeStr.contains("read") ? true : false;
-        App.writeTest = modeStr.contains("write") ? true : false;
+        App.readTest = modeStr.contains("read");
+        App.writeTest = modeStr.contains("write");
         String blkOrderStr = (String) orderComboBox.getSelectedItem();
-        App.randomEnable = blkOrderStr.contains("random") ? true : false;
+        App.randomEnable = blkOrderStr.contains("random");
         App.numOfFiles = Integer.valueOf((String) numFilesCombo.getSelectedItem());
         App.numOfBlocks = Integer.valueOf((String) numBlocksCombo.getSelectedItem());
         App.blockSizeKb = Integer.valueOf((String) blockSizeCombo.getSelectedItem());
@@ -756,23 +773,23 @@ public final class MainFrame extends javax.swing.JFrame {
     public void refreshWriteMetrics() {
         DecimalFormat df = new DecimalFormat("###.###");
         String value;
-        value = App.wMin==-1 ? "" : df.format(App.wMin);
-        wMinText.setText(value);
-        value = App.wMax==-1 ? "" : df.format(App.wMax);
-        wMaxText.setText(value);
-        value = App.wAvg==-1 ? "" : df.format(App.wAvg);
-        wAvgText.setText(value);
+        value = App.wMin==-1 ? "- -" : df.format(App.wMin);
+        wMinLabel.setText(value);
+        value = App.wMax==-1 ? "- -" : df.format(App.wMax);
+        wMaxLabel.setText(value);
+        value = App.wAvg==-1 ? "- -" : df.format(App.wAvg);
+        wAvgLabel.setText(value);
     }
     
     public void refreshReadMetrics() {
         DecimalFormat df = new DecimalFormat("###.###");
         String value;
-        value = App.rMin==-1 ? "" : df.format(App.rMin);
-        rMinText.setText(value);
-        value = App.rMax==-1 ? "" : df.format(App.rMax);
-        rMaxText.setText(value);
-        value = App.rAvg==-1 ? "" : df.format(App.rAvg);
-        rAvgText.setText(value);
+        value = App.rMin==-1 ? "- -" : df.format(App.rMin);
+        rMinLabel.setText(value);
+        value = App.rMax==-1 ? "- -" : df.format(App.rMax);
+        rMaxLabel.setText(value);
+        value = App.rAvg==-1 ? "- -" : df.format(App.rAvg);
+        rAvgLabel.setText(value);
     }
     
     public javax.swing.JProgressBar getProgressBar() {
