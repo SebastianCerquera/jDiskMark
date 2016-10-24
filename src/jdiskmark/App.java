@@ -40,10 +40,11 @@ public class App {
     public static boolean showMaxMin = true;
     public static boolean readTest = false;
     public static boolean writeTest = true;
-    public static boolean randomEnable = false;
+    //public static boolean randomEnable = false;
+    public static DiskRun.BlockSequence blockSequence = DiskRun.BlockSequence.SEQUENTIAL;
     public static boolean writeSyncEnable = true;
     public static int nextMarkNumber = 1;   // number of the next mark
-    public static int numOfFiles = 25;      // desired number of marks
+    public static int numOfMarks = 25;      // desired number of marks
     public static int numOfBlocks = 32;     // desired number of blocks
     public static int blockSizeKb = 512;    // size of a block in KBs
     public static DiskWorker worker = null;
@@ -127,12 +128,12 @@ public class App {
         autoRemoveData = Boolean.valueOf(value);
         value = p.getProperty("autoReset", String.valueOf(autoReset));
         autoReset = Boolean.valueOf(value);
-        value = p.getProperty("randomEnable", String.valueOf(randomEnable));
-        randomEnable = Boolean.valueOf(value);
+        value = p.getProperty("blockSequence", String.valueOf(blockSequence));
+        blockSequence = DiskRun.BlockSequence.valueOf(value);
         value = p.getProperty("showMaxMin", String.valueOf(showMaxMin));
         showMaxMin = Boolean.valueOf(value);
-        value = p.getProperty("numOfFiles", String.valueOf(numOfFiles));
-        numOfFiles = Integer.valueOf(value);
+        value = p.getProperty("numOfFiles", String.valueOf(numOfMarks));
+        numOfMarks = Integer.valueOf(value);
         value = p.getProperty("numOfBlocks", String.valueOf(numOfBlocks));
         numOfBlocks = Integer.valueOf(value);
         value = p.getProperty("blockSizeKb", String.valueOf(blockSizeKb));
@@ -150,9 +151,9 @@ public class App {
         p.setProperty("multiFile", String.valueOf(multiFile));
         p.setProperty("autoRemoveData", String.valueOf(autoRemoveData));
         p.setProperty("autoReset", String.valueOf(autoReset));
-        p.setProperty("randomEnable", String.valueOf(randomEnable));
+        p.setProperty("blockSequence", String.valueOf(blockSequence));
         p.setProperty("showMaxMin", String.valueOf(showMaxMin));
-        p.setProperty("numOfFiles", String.valueOf(numOfFiles));
+        p.setProperty("numOfFiles", String.valueOf(numOfMarks));
         p.setProperty("numOfBlocks", String.valueOf(numOfBlocks));
         p.setProperty("blockSizeKb", String.valueOf(blockSizeKb));
         p.setProperty("writeTest", String.valueOf(writeTest));
@@ -178,9 +179,9 @@ public class App {
         sb.append("multiFile: ").append(multiFile).append('\n');
         sb.append("autoRemoveData: ").append(autoRemoveData).append('\n');
         sb.append("autoReset: ").append(autoReset).append('\n');
-        sb.append("randomEnable: ").append(randomEnable).append('\n');
+        sb.append("blockSequence: ").append(blockSequence).append('\n');
         sb.append("showMaxMin: ").append(showMaxMin).append('\n');
-        sb.append("numOfFiles: ").append(numOfFiles).append('\n');
+        sb.append("numOfFiles: ").append(numOfMarks).append('\n');
         sb.append("numOfBlocks: ").append(numOfBlocks).append('\n');
         sb.append("blockSizeKb: ").append(blockSizeKb).append('\n');
         return sb.toString();
@@ -260,7 +261,7 @@ public class App {
     }
     
     public static long getTotalTxSizeKb() {
-        return blockSizeKb * numOfBlocks * numOfFiles;
+        return blockSizeKb * numOfBlocks * numOfMarks;
     }
     
     public static void updateMetrics(DiskMark mark) {

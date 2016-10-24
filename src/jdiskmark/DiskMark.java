@@ -1,10 +1,14 @@
 
 package jdiskmark;
 
+import java.text.DecimalFormat;
+
 /**
  *
  */
 public class DiskMark {
+    
+    static DecimalFormat df = new DecimalFormat("###.###");
     
     public enum MarkType { READ,WRITE; }
     
@@ -21,6 +25,22 @@ public class DiskMark {
     
     @Override
     public String toString() {
-        return "Mark("+type+"): "+markNum+" bwMbSec: "+bwMbSec+" cum avg: "+cumAvg;
+        return "Mark("+type+"): "+markNum+" bwMbSec: "+getBwMbSec()+" avg: "+getAvg();
+    }
+    
+    String getBwMbSec() {
+        return df.format(bwMbSec);
+    }
+    
+    String getMin() {
+        return df.format(cumMin);
+    }
+    
+    String getMax() {
+        return df.format(cumMax);
+    }
+    
+    String getAvg() {
+        return df.format(cumAvg);
     }
 }

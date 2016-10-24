@@ -8,13 +8,14 @@ import static jdiskmark.App.msg;
 import static jdiskmark.App.numOfBlocks;
 import static jdiskmark.App.testFile;
 import static jdiskmark.App.dataDir;
-import static jdiskmark.App.numOfFiles;
+import static jdiskmark.App.numOfMarks;
 import static jdiskmark.DiskMark.MarkType.READ;
 import static jdiskmark.DiskMark.MarkType.WRITE;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,15 +33,15 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         
         System.out.println("*** starting new worker thread");
         msg("Running readTest "+App.readTest+"   writeTest "+App.writeTest);
-        msg("num files: "+App.numOfFiles+", num blks: "+App.numOfBlocks
-           +", blk size (kb): "+App.blockSizeKb+", random blk order: "+App.randomEnable);
+        msg("num files: "+App.numOfMarks+", num blks: "+App.numOfBlocks
+           +", blk size (kb): "+App.blockSizeKb+", blockSequence: "+App.blockSequence);
         
-        int wUnitsComplete = 0, 
-            rUnitsComplete = 0, 
+        int wUnitsComplete = 0,
+            rUnitsComplete = 0,
             unitsComplete;
         
-        int wUnitsTotal = App.writeTest ? numOfBlocks * numOfFiles : 0;
-        int rUnitsTotal = App.readTest ? numOfBlocks * numOfFiles : 0;
+        int wUnitsTotal = App.writeTest ? numOfBlocks * numOfMarks : 0;
+        int rUnitsTotal = App.readTest ? numOfBlocks * numOfMarks : 0;
         int unitsTotal = wUnitsTotal + rUnitsTotal;
         float percentComplete;
         
@@ -64,10 +65,15 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         int startFileNum = App.nextMarkNumber;
         
         if(App.writeTest) {
+            DiskRun run = new DiskRun(DiskRun.Type.WRITE, App.blockSequence);
+            run.numMarks = App.numOfMarks;
+            run.numBlocks = App.numOfBlocks;
+            run.blockSize = App.blockSizeKb;
+            
             if (App.multiFile == false) {
                 testFile = new File(dataDir.getAbsolutePath()+File.separator+"testdata.jdm");
             }            
-            for (int m=startFileNum; m<startFileNum+App.numOfFiles && !isCancelled(); m++) {
+            for (int m=startFileNum; m<startFileNum+App.numOfMarks && !isCancelled(); m++) {
                 
                 if (App.multiFile == true) {
                     testFile = new File(dataDir.getAbsolutePath()
@@ -84,7 +90,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 try {
                     try (RandomAccessFile rAccFile = new RandomAccessFile(testFile,mode)) {
                         for (int b=0; b<numOfBlocks; b++) {
-                            if (App.randomEnable) {
+                            if (App.blockSequence == DiskRun.BlockSequence.RANDOM) {
                                 int rLoc = Util.randInt(0, numOfBlocks-1);
                                 rAccFile.seek(rLoc*blockSize);
                             } else {
@@ -108,11 +114,18 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 double sec = (double)elapsedTimeNs / (double)1000000000;
                 double mbWritten = (double)totalBytesWrittenInMark / (double)MEGABYTE;
                 wMark.bwMbSec = mbWritten / sec;
-                msg("m:"+m+" write IO is "+wMark.bwMbSec+" MB/s     "
-                        + "(MB written "+mbWritten+ " in "+sec+" sec)");
+                msg("m:"+m+" write IO is "+wMark.getBwMbSec()+" MB/s     "
+                        + "("+Util.displayString(mbWritten)+ "MB written in "
+                        + Util.displayString(sec)+" sec)");
                 App.updateMetrics(wMark);
                 publish(wMark);
+                
+                run.cumMax = wMark.cumMax;
+                run.cumMin = wMark.cumMin;
+                run.cumAvg = wMark.cumAvg;
+                run.endTime = new Date();
             }
+            Gui.runPanel.addRun(run);
         }
         
         
@@ -128,7 +141,11 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         }
         
         if (App.readTest) {
-            for (int m=startFileNum; m<startFileNum+App.numOfFiles && !isCancelled(); m++) {
+            DiskRun run = new DiskRun(DiskRun.Type.READ, App.blockSequence);
+            run.numMarks = App.numOfMarks;
+            run.numBlocks = App.numOfBlocks;
+            run.blockSize = App.blockSizeKb;
+            for (int m=startFileNum; m<startFileNum+App.numOfMarks && !isCancelled(); m++) {
                 
                 if (App.multiFile == true) {
                     testFile = new File(dataDir.getAbsolutePath()
@@ -142,7 +159,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 try {
                     try (RandomAccessFile rAccFile = new RandomAccessFile(testFile,"r")) {
                         for (int b=0; b<numOfBlocks; b++) {
-                            if (App.randomEnable) {
+                            if (App.blockSequence == DiskRun.BlockSequence.RANDOM) {
                                 int rLoc = Util.randInt(0, numOfBlocks-1);
                                 rAccFile.seek(rLoc*blockSize);
                             } else {
@@ -170,9 +187,15 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                         + "(MBread "+mbRead+" in "+sec+" sec)");
                 App.updateMetrics(rMark);
                 publish(rMark);
+                
+                run.cumMax = rMark.cumMax;
+                run.cumMin = rMark.cumMin;
+                run.cumAvg = rMark.cumAvg;
+                run.endTime = new Date();
             }
+            Gui.runPanel.addRun(run);
         }
-        App.nextMarkNumber += App.numOfFiles;        
+        App.nextMarkNumber += App.numOfMarks;        
         return true;
     }
     

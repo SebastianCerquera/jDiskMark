@@ -17,7 +17,7 @@ import javax.swing.text.DefaultCaret;
  */
 public final class MainFrame extends javax.swing.JFrame {
 
-
+    DecimalFormat df = new DecimalFormat("###.###");
     
     /**
      * Creates new form MainFrame
@@ -37,6 +37,10 @@ public final class MainFrame extends javax.swing.JFrame {
         // auto scroll the text area.
         DefaultCaret caret = (DefaultCaret) msgTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
+        // init order combo box
+        orderComboBox.addItem(DiskRun.BlockSequence.SEQUENTIAL);
+        orderComboBox.addItem(DiskRun.BlockSequence.RANDOM);
     }
 
     public JPanel getMountPanel() {
@@ -64,10 +68,10 @@ public final class MainFrame extends javax.swing.JFrame {
         else { msg("WARNING: invalid mode detected"); }
         modeCombo.setSelectedItem(modeStr);
         
-        String blockOrderStr = App.randomEnable ? "random":"sequential";
-        orderComboBox.setSelectedItem(blockOrderStr);
+        //String blockOrderStr = App.randomEnable ? "random":"sequential";
+        orderComboBox.setSelectedItem(App.blockSequence);
         
-        numFilesCombo.setSelectedItem(String.valueOf(App.numOfFiles));
+        numFilesCombo.setSelectedItem(String.valueOf(App.numOfMarks));
         numBlocksCombo.setSelectedItem(String.valueOf(App.numOfBlocks));
         blockSizeCombo.setSelectedItem(String.valueOf(App.blockSizeKb)); 
     }
@@ -114,13 +118,14 @@ public final class MainFrame extends javax.swing.JFrame {
         rMaxLabel = new javax.swing.JLabel();
         rAvgLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        eventScrollPane = new javax.swing.JScrollPane();
         msgTextArea = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        locationPanel = new javax.swing.JPanel();
         chooseButton = new javax.swing.JButton();
         locationText = new javax.swing.JTextField();
         openLocButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        runPanel1 = new jdiskmark.RunPanel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -197,7 +202,7 @@ public final class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("No. Files");
+        jLabel8.setText("No. Marks");
 
         numFilesCombo.setEditable(true);
         numFilesCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25", "50", "75", "100", "150", "200", "250" }));
@@ -236,7 +241,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Tx Rates (MB/s)");
 
-        orderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sequential", "random" }));
         orderComboBox.setMaximumSize(new java.awt.Dimension(106, 32767));
         orderComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +296,7 @@ public final class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel14))
-                                .addGap(0, 30, Short.MAX_VALUE))
+                                .addGap(0, 47, Short.MAX_VALUE))
                             .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -384,9 +388,9 @@ public final class MainFrame extends javax.swing.JFrame {
         msgTextArea.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
         msgTextArea.setRows(5);
         msgTextArea.setTabSize(4);
-        jScrollPane1.setViewportView(msgTextArea);
+        eventScrollPane.setViewportView(msgTextArea);
 
-        jTabbedPane1.addTab("Event Logs", jScrollPane1);
+        jTabbedPane1.addTab("Event Logs", eventScrollPane);
 
         chooseButton.setText("...");
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -406,13 +410,13 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jLabel15.setText("/jDiskMarkData");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout locationPanelLayout = new javax.swing.GroupLayout(locationPanel);
+        locationPanel.setLayout(locationPanelLayout);
+        locationPanelLayout.setHorizontalGroup(
+            locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(locationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(locationText, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(locationText, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -421,11 +425,11 @@ public final class MainFrame extends javax.swing.JFrame {
                 .addComponent(openLocButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        locationPanelLayout.setVerticalGroup(
+            locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(locationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(locationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chooseButton)
                     .addComponent(openLocButton)
@@ -433,7 +437,8 @@ public final class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(112, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Data Location", jPanel1);
+        jTabbedPane1.addTab("Data Location", locationPanel);
+        jTabbedPane1.addTab("Previouis Runs", runPanel1);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Total Tx (KB)");
@@ -565,8 +570,10 @@ public final class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,7 +620,7 @@ public final class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_numBlocksComboActionPerformed
 
     private void numFilesComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numFilesComboActionPerformed
-        App.numOfFiles = Integer.valueOf((String) numFilesCombo.getSelectedItem());
+        App.numOfMarks = Integer.valueOf((String) numFilesCombo.getSelectedItem());
         fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
         totalTxProgBar.setString(String.valueOf(App.getTotalTxSizeKb()));
     }//GEN-LAST:event_numFilesComboActionPerformed
@@ -678,8 +685,7 @@ public final class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_showMaxMinCheckBoxMenuItemActionPerformed
 
     private void orderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderComboBoxActionPerformed
-        String blkOrderStr = (String) orderComboBox.getSelectedItem();
-        App.randomEnable = blkOrderStr.contains("random");
+        App.blockSequence = (DiskRun.BlockSequence) orderComboBox.getSelectedItem();
     }//GEN-LAST:event_orderComboBoxActionPerformed
 
     private void writeSyncCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeSyncCheckBoxMenuItemActionPerformed
@@ -694,6 +700,7 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox blockSizeCombo;
     private javax.swing.JButton chooseButton;
     private javax.swing.JMenuItem deleteDataMenuItem;
+    private javax.swing.JScrollPane eventScrollPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JLabel fileSizeLabel;
     private javax.swing.JMenu helpMenu;
@@ -717,14 +724,13 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel locationPanel;
     private javax.swing.JTextField locationText;
     private javax.swing.JComboBox modeCombo;
     private javax.swing.JPanel mountPanel;
@@ -740,6 +746,7 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel rMinLabel;
     private javax.swing.JButton resetButton;
     private javax.swing.JMenuItem resetSequenceMenuItem;
+    private jdiskmark.RunPanel runPanel1;
     private javax.swing.JCheckBoxMenuItem showMaxMinCheckBoxMenuItem;
     private javax.swing.JButton startButton;
     private javax.swing.JProgressBar totalTxProgBar;
@@ -761,9 +768,8 @@ public final class MainFrame extends javax.swing.JFrame {
         String modeStr = (String) modeCombo.getSelectedItem();
         App.readTest = modeStr.contains("read");
         App.writeTest = modeStr.contains("write");
-        String blkOrderStr = (String) orderComboBox.getSelectedItem();
-        App.randomEnable = blkOrderStr.contains("random");
-        App.numOfFiles = Integer.valueOf((String) numFilesCombo.getSelectedItem());
+        App.blockSequence = (DiskRun.BlockSequence)orderComboBox.getSelectedItem();
+        App.numOfMarks = Integer.valueOf((String) numFilesCombo.getSelectedItem());
         App.numOfBlocks = Integer.valueOf((String) numBlocksCombo.getSelectedItem());
         App.blockSizeKb = Integer.valueOf((String) blockSizeCombo.getSelectedItem());
         fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
@@ -771,7 +777,6 @@ public final class MainFrame extends javax.swing.JFrame {
     }
     
     public void refreshWriteMetrics() {
-        DecimalFormat df = new DecimalFormat("###.###");
         String value;
         value = App.wMin==-1 ? "- -" : df.format(App.wMin);
         wMinLabel.setText(value);
@@ -782,7 +787,6 @@ public final class MainFrame extends javax.swing.JFrame {
     }
     
     public void refreshReadMetrics() {
-        DecimalFormat df = new DecimalFormat("###.###");
         String value;
         value = App.rMin==-1 ? "- -" : df.format(App.rMin);
         rMinLabel.setText(value);

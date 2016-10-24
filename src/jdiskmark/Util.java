@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,6 +13,8 @@ import java.util.Random;
  * Utility methods for jDiskMark
  */
 public class Util {
+    
+    static DecimalFormat df = new DecimalFormat("###.###");
     
     /**
      * Deletes the Directory and all files within
@@ -98,5 +101,9 @@ public class Util {
           System.out.println("Free space (bytes): " + root.getFreeSpace());
           System.out.println("Usable space (bytes): " + root.getUsableSpace());
         }
+    }
+    
+    public static String displayString(double num) {
+        return df.format(num);
     }
 }

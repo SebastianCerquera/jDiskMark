@@ -26,6 +26,7 @@ public final class Gui {
     public static XYSeries rSeries, rAvgSeries, rMaxSeries, rMinSeries;
     public static JFreeChart chart;
     public static JProgressBar progressBar = null;
+    public static RunPanel runPanel = null;
     
     public static ChartPanel createChartPanel() {
         
