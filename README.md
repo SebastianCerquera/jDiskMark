@@ -27,10 +27,13 @@ v0.2
 
  - auto generate zip release ie. jdiskmark-v0.2.zip
  - added tabbed pane near bottom to organize new controls
+ - format excessive decimal places
+ - show recent runs (not persisted)
 
 desired features
 
- - past run history > persisted
+ - persist recent run with jpa
+   http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html
  - hard drive specs, ie. manufacturer, size, speed
  - auto clear disk cache linux
  - auto clear disk cache windows
