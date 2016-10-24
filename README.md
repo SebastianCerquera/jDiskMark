@@ -29,9 +29,11 @@ v0.2
  - added tabbed pane near bottom to organize new controls
  - format excessive decimal places
  - show recent runs (not persisted)
+ - default to nimbus look and feel
 
 desired features
 
+ - remove "transfer mark number" from graph
  - persist recent run with jpa
    http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html
  - hard drive specs, ie. manufacturer, size, speed
