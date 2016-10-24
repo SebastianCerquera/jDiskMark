@@ -38,11 +38,11 @@ public class RunPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Run Type", "Sequence", "Marks", "Blocks", "Blk Size", "Tx Size", "Start Time", "Duration", "Max (MB/Sec)", "Min (MB/Sec)", "Avg (MB/Sec)"
+                "Type", "Sequence", "Marks", "Blocks", "B. Size", "Tx Size", "Start Time", "Duration", "Max (MB/Sec)", "Min (MB/Sec)", "Avg (MB/Sec)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -149,11 +149,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel2" max="32767" attributes="0"/>
           <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-          <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="progressPanel" alignment="1" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -161,11 +158,11 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="195" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator2" min="-2" pref="1" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+              <Component id="jSeparator2" min="-2" pref="0" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <Component id="progressPanel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -179,15 +176,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="mountPanel" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                  <Component id="controlsPanel" min="-2" pref="258" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jPanel4" pref="337" max="32767" attributes="0"/>
               <Component id="mountPanel" alignment="0" max="32767" attributes="0"/>
+              <Component id="controlsPanel" alignment="1" pref="399" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -215,10 +212,10 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel4">
+        <Container class="javax.swing.JPanel" name="controlsPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[175, 400]"/>
+              <Dimension value="[250, 420]"/>
             </Property>
           </Properties>
 
@@ -238,40 +235,35 @@
                                   <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="rMaxLabel" alignment="1" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="rMaxLabel" alignment="1" pref="100" max="32767" attributes="0"/>
                                   <Component id="rMinLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="rAvgLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="wMinLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="wMaxLabel" alignment="0" max="32767" attributes="0"/>
                                   <Component id="wAvgLabel" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="wMaxLabel" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="wMinLabel" alignment="1" pref="73" max="32767" attributes="0"/>
-                                  <Component id="rAvgLabel" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel13" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="resetButton" max="32767" attributes="0"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="resetButton" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="orderComboBox" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="modeCombo" pref="0" max="32767" attributes="0"/>
-                                  <Component id="fileSizeLabel" max="32767" attributes="0"/>
-                                  <Component id="numBlocksCombo" alignment="1" pref="0" max="32767" attributes="0"/>
-                                  <Component id="numFilesCombo" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace pref="41" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="startButton" alignment="0" pref="100" max="32767" attributes="0"/>
+                                  <Component id="numFilesCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="orderComboBox" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="modeCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="numBlocksCombo" alignment="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="blockSizeCombo" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="startButton" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="fileSizeLabel" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -572,7 +564,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -626,9 +618,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="locationText" pref="524" max="32767" attributes="0"/>
+                      <Component id="locationText" min="-2" pref="480" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel15" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="jLabel15" pref="200" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="chooseButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -647,7 +639,7 @@
                           <Component id="openLocButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="112" max="32767" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -655,7 +647,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="chooseButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="..."/>
+                <Property name="text" type="java.lang.String" value="Browse"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseButtonActionPerformed"/>
@@ -685,7 +677,7 @@
     </Container>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="progressPanel">
 
       <Layout>
         <DimensionLayout dim="0">
