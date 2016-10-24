@@ -38,11 +38,11 @@ public class RunPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Run Type", "Sequence", "Marks", "Blocks", "Size", "Start Time", "Duration", "Max (MB/Sec)", "Min (MB/Sec)", "Avg (MB/Sec)"
+                "Run Type", "Sequence", "Marks", "Blocks", "Blk Size", "Tx Size", "Start Time", "Duration", "Max (MB/Sec)", "Min (MB/Sec)", "Avg (MB/Sec)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false, false, false
+                false, false, false, false, false, true, false, true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -53,14 +53,15 @@ public class RunPanel extends javax.swing.JPanel {
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(25);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(15);
             jTable1.getColumnModel().getColumn(8).setPreferredWidth(40);
             jTable1.getColumnModel().getColumn(9).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(10).setPreferredWidth(40);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -96,6 +97,7 @@ public class RunPanel extends javax.swing.JPanel {
                     run.numMarks,
                     run.numBlocks,
                     run.blockSize,
+                    run.txSize,
                     run.startTime.toString(),
                     run.getDuration(),
                     run.getMax(),

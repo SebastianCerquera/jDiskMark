@@ -20,6 +20,7 @@ public class DiskRun {
     int numMarks = 0;
     int numBlocks = 0;
     int blockSize = 0;
+    long txSize = 0;
     
     // run data
     int id;

@@ -259,7 +259,7 @@
                                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="47" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="resetButton" max="32767" attributes="0"/>
                               </Group>
@@ -483,7 +483,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="File Size"/>
+                <Property name="text" type="java.lang.String" value="Mark Size (KB)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="fileSizeLabel">
@@ -576,6 +576,15 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
+        <Component class="jdiskmark.RunPanel" name="runPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Previouis Runs">
+                <Property name="tabTitle" type="java.lang.String" value="Previouis Runs"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
         <Container class="javax.swing.JScrollPane" name="eventScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -672,15 +681,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="jdiskmark.RunPanel" name="runPanel1">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Previouis Runs">
-                <Property name="tabTitle" type="java.lang.String" value="Previouis Runs"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JSeparator" name="jSeparator2">

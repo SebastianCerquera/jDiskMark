@@ -118,6 +118,7 @@ public final class MainFrame extends javax.swing.JFrame {
         rMaxLabel = new javax.swing.JLabel();
         rAvgLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        runPanel = new jdiskmark.RunPanel();
         eventScrollPane = new javax.swing.JScrollPane();
         msgTextArea = new javax.swing.JTextArea();
         locationPanel = new javax.swing.JPanel();
@@ -125,7 +126,6 @@ public final class MainFrame extends javax.swing.JFrame {
         locationText = new javax.swing.JTextField();
         openLocButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        runPanel1 = new jdiskmark.RunPanel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -221,7 +221,7 @@ public final class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("File Size");
+        jLabel9.setText("Mark Size (KB)");
 
         fileSizeLabel.setText("- -");
 
@@ -296,7 +296,7 @@ public final class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel14))
-                                .addGap(0, 47, Short.MAX_VALUE))
+                                .addGap(0, 34, Short.MAX_VALUE))
                             .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -383,6 +383,8 @@ public final class MainFrame extends javax.swing.JFrame {
             .addComponent(mountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jTabbedPane1.addTab("Previouis Runs", runPanel);
+
         msgTextArea.setEditable(false);
         msgTextArea.setColumns(20);
         msgTextArea.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
@@ -438,7 +440,6 @@ public final class MainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Data Location", locationPanel);
-        jTabbedPane1.addTab("Previouis Runs", runPanel1);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Total Tx (KB)");
@@ -609,20 +610,20 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void blockSizeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blockSizeComboActionPerformed
         App.blockSizeKb = Integer.valueOf((String) blockSizeCombo.getSelectedItem());
-        fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
-        totalTxProgBar.setString(String.valueOf(App.getTotalTxSizeKb()));
+        fileSizeLabel.setText(String.valueOf(App.targetMarkSizeKb()));
+        totalTxProgBar.setString(String.valueOf(App.targetTxSizeKb()));
     }//GEN-LAST:event_blockSizeComboActionPerformed
 
     private void numBlocksComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numBlocksComboActionPerformed
         App.numOfBlocks = Integer.valueOf((String) numBlocksCombo.getSelectedItem());
-        fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
-        totalTxProgBar.setString(String.valueOf(App.getTotalTxSizeKb()));
+        fileSizeLabel.setText(String.valueOf(App.targetMarkSizeKb()));
+        totalTxProgBar.setString(String.valueOf(App.targetTxSizeKb()));
     }//GEN-LAST:event_numBlocksComboActionPerformed
 
     private void numFilesComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numFilesComboActionPerformed
         App.numOfMarks = Integer.valueOf((String) numFilesCombo.getSelectedItem());
-        fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
-        totalTxProgBar.setString(String.valueOf(App.getTotalTxSizeKb()));
+        fileSizeLabel.setText(String.valueOf(App.targetMarkSizeKb()));
+        totalTxProgBar.setString(String.valueOf(App.targetTxSizeKb()));
     }//GEN-LAST:event_numFilesComboActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -746,7 +747,7 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel rMinLabel;
     private javax.swing.JButton resetButton;
     private javax.swing.JMenuItem resetSequenceMenuItem;
-    private jdiskmark.RunPanel runPanel1;
+    private jdiskmark.RunPanel runPanel;
     private javax.swing.JCheckBoxMenuItem showMaxMinCheckBoxMenuItem;
     private javax.swing.JButton startButton;
     private javax.swing.JProgressBar totalTxProgBar;
@@ -772,8 +773,8 @@ public final class MainFrame extends javax.swing.JFrame {
         App.numOfMarks = Integer.valueOf((String) numFilesCombo.getSelectedItem());
         App.numOfBlocks = Integer.valueOf((String) numBlocksCombo.getSelectedItem());
         App.blockSizeKb = Integer.valueOf((String) blockSizeCombo.getSelectedItem());
-        fileSizeLabel.setText(String.valueOf(App.getTotalFileSizeKb()));
-        totalTxProgBar.setString(String.valueOf(App.getTotalTxSizeKb()));
+        fileSizeLabel.setText(String.valueOf(App.targetMarkSizeKb()));
+        totalTxProgBar.setString(String.valueOf(App.targetTxSizeKb()));
     }
     
     public void refreshWriteMetrics() {

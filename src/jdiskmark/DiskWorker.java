@@ -69,6 +69,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
             run.numMarks = App.numOfMarks;
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
+            run.txSize = App.targetTxSizeKb();
             
             if (App.multiFile == false) {
                 testFile = new File(dataDir.getAbsolutePath()+File.separator+"testdata.jdm");
@@ -145,6 +146,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
             run.numMarks = App.numOfMarks;
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
+            run.txSize = App.targetTxSizeKb();
             for (int m=startFileNum; m<startFileNum+App.numOfMarks && !isCancelled(); m++) {
                 
                 if (App.multiFile == true) {
@@ -195,7 +197,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
             }
             Gui.runPanel.addRun(run);
         }
-        App.nextMarkNumber += App.numOfMarks;        
+        App.nextMarkNumber += App.numOfMarks;      
         return true;
     }
     

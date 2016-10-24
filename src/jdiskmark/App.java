@@ -27,27 +27,32 @@ public class App {
     public static final int KILOBYTE = 1024;
     public static final int IDLE_STATE = 0;
     public static final int DISK_TEST_STATE = 1;
+
     public static enum State {IDLE_STATE, DISK_TEST_STATE};
-    
     public static State state = State.IDLE_STATE;
+    
     public static Properties p;
     public static File locationDir = null;
     public static File dataDir = null;
     public static File testFile = null;
+    
+    // options
     public static boolean multiFile = true;
     public static boolean autoRemoveData = false;
     public static boolean autoReset = true;
     public static boolean showMaxMin = true;
+    public static boolean writeSyncEnable = true;
+    
+    // run configuration
     public static boolean readTest = false;
     public static boolean writeTest = true;
-    //public static boolean randomEnable = false;
     public static DiskRun.BlockSequence blockSequence = DiskRun.BlockSequence.SEQUENTIAL;
-    public static boolean writeSyncEnable = true;
-    public static int nextMarkNumber = 1;   // number of the next mark
     public static int numOfMarks = 25;      // desired number of marks
     public static int numOfBlocks = 32;     // desired number of blocks
     public static int blockSizeKb = 512;    // size of a block in KBs
+    
     public static DiskWorker worker = null;
+    public static int nextMarkNumber = 1;   // number of the next mark
     public static double wMax = -1, wMin = -1, wAvg = -1;
     public static double rMax = -1, rMin = -1, rAvg = -1;
     
@@ -241,11 +246,13 @@ public class App {
                 case "progress":
                     int value = (Integer)event.getNewValue();
                     Gui.progressBar.setValue(value);
+                    long kbProcessed = (value) * App.targetTxSizeKb() / 100;
+                    Gui.progressBar.setString(String.valueOf(kbProcessed)+" / "+String.valueOf(App.targetTxSizeKb()));
                     break;
                 case "state":
                     switch ((StateValue) event.getNewValue()) {
                         case STARTED:
-                            Gui.progressBar.setString(String.valueOf(App.getTotalTxSizeKb()));
+                            Gui.progressBar.setString("0 / "+String.valueOf(App.targetTxSizeKb()));
                             break;
                         case DONE:
                             break;
@@ -256,11 +263,11 @@ public class App {
         worker.execute();
     }
     
-    public static long getTotalFileSizeKb() {
+    public static long targetMarkSizeKb() {
         return blockSizeKb * numOfBlocks;
     }
     
-    public static long getTotalTxSizeKb() {
+    public static long targetTxSizeKb() {
         return blockSizeKb * numOfBlocks * numOfMarks;
     }
     
