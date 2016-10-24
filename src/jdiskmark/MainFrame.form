@@ -150,7 +150,7 @@
           <Component id="jPanel2" max="32767" attributes="0"/>
           <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
           <Component id="progressPanel" alignment="1" max="32767" attributes="0"/>
-          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" pref="887" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -158,7 +158,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="195" max="32767" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="195" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="0" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -176,15 +176,20 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="mountPanel" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="controlsPanel" min="-2" pref="258" max="-2" attributes="0"/>
+                  <Component id="controlsPanel" min="-2" pref="217" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="mountPanel" alignment="0" max="32767" attributes="0"/>
-              <Component id="controlsPanel" alignment="1" pref="399" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="mountPanel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="controlsPanel" min="-2" pref="381" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -236,13 +241,14 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="rMaxLabel" alignment="1" pref="100" max="32767" attributes="0"/>
-                                  <Component id="rMinLabel" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="rAvgLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="wMinLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="rMaxLabel" alignment="0" pref="80" max="32767" attributes="0"/>
+                                  <Component id="rMinLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="wAvgLabel" alignment="0" max="32767" attributes="0"/>
                                   <Component id="wMaxLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="wAvgLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="wMinLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="rAvgLabel" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel13" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -253,17 +259,22 @@
                                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resetButton" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="resetButton" min="-2" pref="99" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="startButton" alignment="0" pref="100" max="32767" attributes="0"/>
-                                  <Component id="numFilesCombo" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="orderComboBox" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="modeCombo" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="numBlocksCombo" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="blockSizeCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="fileSizeLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="blockSizeCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="numBlocksCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="numFilesCombo" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="orderComboBox" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="modeCombo" alignment="0" pref="94" max="32767" attributes="0"/>
+                                          <Component id="startButton" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -620,7 +631,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="locationText" min="-2" pref="480" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel15" pref="200" max="32767" attributes="0"/>
+                      <Component id="jLabel15" pref="191" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="chooseButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -639,7 +650,7 @@
                           <Component id="openLocButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="117" max="32767" attributes="0"/>
+                      <EmptySpace pref="131" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

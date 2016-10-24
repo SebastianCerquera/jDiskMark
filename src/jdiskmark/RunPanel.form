@@ -53,9 +53,9 @@
                 <Column editable="false" title="Tx Size" type="java.lang.Object"/>
                 <Column editable="false" title="Start Time" type="java.lang.Object"/>
                 <Column editable="false" title="Duration" type="java.lang.Object"/>
-                <Column editable="false" title="Max (MB/Sec)" type="java.lang.Object"/>
-                <Column editable="false" title="Min (MB/Sec)" type="java.lang.Object"/>
-                <Column editable="false" title="Avg (MB/Sec)" type="java.lang.Object"/>
+                <Column editable="false" title="Max (MB/s)" type="java.lang.Object"/>
+                <Column editable="false" title="Min (MB/s)" type="java.lang.Object"/>
+                <Column editable="false" title="Avg (MB/s)" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
