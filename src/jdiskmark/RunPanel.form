@@ -44,13 +44,14 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="0">
+              <Table columnCount="10" rowCount="0">
                 <Column editable="false" title="Run Type" type="java.lang.Object"/>
                 <Column editable="false" title="Sequence" type="java.lang.Object"/>
                 <Column editable="false" title="Marks" type="java.lang.Object"/>
                 <Column editable="false" title="Blocks" type="java.lang.Object"/>
                 <Column editable="false" title="Size" type="java.lang.Object"/>
-                <Column editable="false" title="Start Time (duration)" type="java.lang.Object"/>
+                <Column editable="false" title="Start Time" type="java.lang.Object"/>
+                <Column editable="true" title="Duration" type="java.lang.Object"/>
                 <Column editable="false" title="Max (MB/Sec)" type="java.lang.Object"/>
                 <Column editable="false" title="Min (MB/Sec)" type="java.lang.Object"/>
                 <Column editable="false" title="Avg (MB/Sec)" type="java.lang.Object"/>
@@ -84,6 +85,11 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="15" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
