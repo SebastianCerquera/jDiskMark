@@ -5,6 +5,8 @@
  */
 package jdiskmark;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +21,14 @@ public class RunPanel extends javax.swing.JPanel {
     public RunPanel() {
         initComponents();
         Gui.runPanel = RunPanel.this;
+        
+        // auto scroll to bottom when a new record is added
+        runTable.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                runTable.scrollRectToVisible(runTable.getCellRect(runTable.getRowCount()-1, 0, true));
+            }
+        });
     }
 
     /**
@@ -31,9 +41,9 @@ public class RunPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        runTable = new javax.swing.JTable();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        runTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -49,19 +59,19 @@ public class RunPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(25);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(10).setPreferredWidth(40);
+        jScrollPane1.setViewportView(runTable);
+        if (runTable.getColumnModel().getColumnCount() > 0) {
+            runTable.getColumnModel().getColumn(0).setPreferredWidth(25);
+            runTable.getColumnModel().getColumn(1).setPreferredWidth(40);
+            runTable.getColumnModel().getColumn(2).setPreferredWidth(10);
+            runTable.getColumnModel().getColumn(3).setPreferredWidth(10);
+            runTable.getColumnModel().getColumn(4).setPreferredWidth(10);
+            runTable.getColumnModel().getColumn(5).setPreferredWidth(10);
+            runTable.getColumnModel().getColumn(6).setPreferredWidth(150);
+            runTable.getColumnModel().getColumn(7).setPreferredWidth(15);
+            runTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+            runTable.getColumnModel().getColumn(9).setPreferredWidth(40);
+            runTable.getColumnModel().getColumn(10).setPreferredWidth(40);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -85,11 +95,11 @@ public class RunPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable runTable;
     // End of variables declaration//GEN-END:variables
 
     public void addRun(DiskRun run) {
-        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) this.runTable.getModel();
         model.addRow(
                 new Object[] {
                     run.runType,
@@ -106,4 +116,10 @@ public class RunPanel extends javax.swing.JPanel {
                 });
     }
     
+    public void clearTable() {
+        DefaultTableModel model = (DefaultTableModel) this.runTable.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+    }
 }

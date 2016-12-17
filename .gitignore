@@ -6,3 +6,4 @@
 /tmp
 *.zip
 /build.properties
+/derbyDB/

@@ -31,11 +31,15 @@ v0.2
  - show recent runs (not persisted)
  - default to nimbus look and feel
 
+v0.3
+
+ - persist recent run with embedded derby db
+ - remove "transfer mark number" from graph
+ - changed graph background to dark gray
+
 desired features
 
- - remove "transfer mark number" from graph
- - persist recent run with jpa
-   http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html
+ - resizing main frame stretches tabbed pane instead of empty panel
  - hard drive specs, ie. manufacturer, size, speed
  - auto clear disk cache linux
  - auto clear disk cache windows

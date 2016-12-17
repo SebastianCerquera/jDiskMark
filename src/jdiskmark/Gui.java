@@ -52,7 +52,7 @@ public final class Gui {
         
         chart = ChartFactory.createXYLineChart(
                         "XY Chart", // Title
-                        "Transfer Mark Number", // x-axis Label
+                        null, // x-axis Label
                         "Bandwidth MB/s", // y-axis Label
                         dataset, // Dataset
                         PlotOrientation.VERTICAL, // Plot Orientation
@@ -61,7 +61,7 @@ public final class Gui {
                         false // Configure chart to generate URLs?
                 );
         XYPlot plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.BLACK);
+        plot.setBackgroundPaint(Color.DARK_GRAY);
         NumberAxis range = (NumberAxis) plot.getDomainAxis();
         range.setNumberFormatOverride(NumberFormat.getNumberInstance());
         chart.getTitle().setVisible(false);

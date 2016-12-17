@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -126,6 +127,12 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 run.cumAvg = wMark.cumAvg;
                 run.endTime = new Date();
             }
+            
+            EntityManager em = EM.getEntityManager();
+            em.getTransaction().begin();
+            em.persist(run);
+            em.getTransaction().commit();
+            
             Gui.runPanel.addRun(run);
         }
         

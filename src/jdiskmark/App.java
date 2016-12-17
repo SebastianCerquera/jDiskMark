@@ -23,6 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class App {
     
+    public static final String APP_CACHE_DIR = System.getProperty("user.home") + File.separator + ".jDiskMark";
     public static final String PROPERTIESFILE = "jdm.properties";
     public static final String DATADIRNAME = "jDiskMarkData";
     public static final int MEGABYTE = 1024 * 1024;
@@ -121,6 +122,10 @@ public class App {
             @Override
             public void run() { App.saveConfig(); }
         });
+        
+        // configure the embedded DB in .jDiskMark
+        System.setProperty("derby.system.home", APP_CACHE_DIR);
+        loadSavedRuns();
     }
     
     public static void loadConfig() {
@@ -200,6 +205,22 @@ public class App {
         sb.append("numOfBlocks: ").append(numOfBlocks).append('\n');
         sb.append("blockSizeKb: ").append(blockSizeKb).append('\n');
         return sb.toString();
+    }
+    
+    public static void loadSavedRuns() {
+        Gui.runPanel.clearTable();
+        
+        // populate run table with saved runs from db
+        System.out.println("loading stored run data");
+        DiskRun.findAll().stream().forEach((DiskRun run) -> {
+            Gui.runPanel.addRun(run);
+        });
+    }
+    
+    public static void clearSavedRuns() {
+        DiskRun.deleteAll();
+        
+        loadSavedRuns();
     }
     
     public static void msg(String message) {
