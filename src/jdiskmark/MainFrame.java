@@ -212,7 +212,7 @@ public final class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Mode");
+        jLabel4.setText("IO Mode");
 
         modeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "write", "read", "write&read" }));
         modeCombo.addActionListener(new java.awt.event.ActionListener() {

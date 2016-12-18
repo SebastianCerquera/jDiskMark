@@ -1,8 +1,11 @@
 
 package jdiskmark;
 
+import java.io.File;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -28,10 +31,11 @@ import javax.persistence.TemporalType;
 })
 public class DiskRun implements Serializable {
     
-    static DecimalFormat df = new DecimalFormat("###.###");
+    static final DecimalFormat DF = new DecimalFormat("###.##");
+    static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d HH:mm:ss");
     
-    public enum Type { READ, WRITE, READ_WRITE; }
-    public enum BlockSequence {SEQUENTIAL, RANDOM; }
+    static public enum IOMode { READ, WRITE, READ_WRITE; }
+    static public enum BlockSequence {SEQUENTIAL, RANDOM; }
 
     @Column
     @Id
@@ -40,7 +44,12 @@ public class DiskRun implements Serializable {
     
     // configuration
     @Column
-    Type runType;
+    String dataPath = null;
+    @Column
+    String driveType = null;
+    // TODO: add drive manufacturer / model number info
+    @Column
+    IOMode ioMode;
     @Column
     BlockSequence blockOrder;
     @Column
@@ -52,55 +61,63 @@ public class DiskRun implements Serializable {
     @Column
     long txSize = 0;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column
     Date startTime;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column
     Date endTime = null;
     @Column
     int totalMarks = 0;
     @Column
-    double cumMin = 0;
+    double runMin = 0;
     @Column
-    double cumMax = 0;
+    double runMax = 0;
     @Column
-    double cumAvg = 0;
+    double runAvg = 0;
     
     @Override
     public String toString() {
-        return "Run("+runType+","+blockOrder+"): "+totalMarks+" cum avg: "+cumAvg;
+        return "Run("+ioMode+","+blockOrder+"): "+totalMarks+" run avg: "+runAvg;
     }
     
     public DiskRun() {
         this.startTime = new Date();
     }
     
-    DiskRun(Type type, BlockSequence order) {
+    DiskRun(IOMode type, BlockSequence order) {
         this.startTime = new Date();
-        runType = type;
+        ioMode = type;
         blockOrder = order;
     }
     
+    // display friendly methods
+    
+    public String getStartTimeString() {
+        return DATE_FORMAT.format(startTime);
+    }
+    
     public String getMin() {
-        return cumMin == -1 ? "- -" : df.format(cumMin);
+        return runMin == -1 ? "- -" : DF.format(runMin);
     }
     
     public void setMin(double min) {
-        cumMin = min;
+        runMin = min;
     }
     
     public String getMax() {
-        return cumMax == -1 ? "- -" : df.format(cumMax);
+        return runMax == -1 ? "- -" : DF.format(runMax);
     }
     
     public void setMax(double max) {
-        cumMax = max;
+        runMax = max;
     }
     
     public String getAvg() {
-        return cumAvg == -1 ? "- -" : df.format(cumAvg);
+        return runAvg == -1 ? "- -" : DF.format(runAvg);
     }
     
     public void SetAvg(double avg) {
-        cumAvg = avg;
+        runAvg = avg;
     }
     
     public String getDuration() {
@@ -112,13 +129,29 @@ public class DiskRun implements Serializable {
         return String.valueOf(diffSeconds) + "s";
     }
     
+    // basic getters and setters
+    
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
+    public String getDriveType(String type) {
+        return this.driveType;
+    }
+    public void setDriveType(String type) {
+        driveType = type;
+    }
+    public String getDataPath() {
+        return this.dataPath;
+    }
+    public void setDataPath(String path) {
+        dataPath = path;
+    }
+    
+    
+    // utility methods for collection
     
     static List<DiskRun> findAll() {
         EntityManager em = EM.getEntityManager();

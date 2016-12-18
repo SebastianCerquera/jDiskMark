@@ -8,13 +8,14 @@ import java.io.RandomAccessFile;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Utility methods for jDiskMark
  */
 public class Util {
     
-    static DecimalFormat df = new DecimalFormat("###.###");
+    static final DecimalFormat DF = new DecimalFormat("###.##");
     
     /**
      * Deletes the Directory and all files within
@@ -100,10 +101,22 @@ public class Util {
           System.out.println("Total space (bytes): " + root.getTotalSpace());
           System.out.println("Free space (bytes): " + root.getFreeSpace());
           System.out.println("Usable space (bytes): " + root.getUsableSpace());
+          System.out.println("Drive Type: "+getDriveType(root));
         }
     }
     
     public static String displayString(double num) {
-        return df.format(num);
+        return DF.format(num);
+    }
+    
+    /**
+     * Gets the drive type string for a root file such as C:\
+     * 
+     * @param file
+     * @return 
+     */
+    public static String getDriveType(File file) {
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+        return fsv.getSystemTypeDescription(file);
     }
 }

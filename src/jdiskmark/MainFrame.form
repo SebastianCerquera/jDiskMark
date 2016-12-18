@@ -472,7 +472,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mode"/>
+                <Property name="text" type="java.lang.String" value="IO Mode"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="modeCombo">

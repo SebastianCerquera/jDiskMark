@@ -20,11 +20,9 @@ https://sourceforge.net/projects/jdiskmark/
 == Release Notes ==
 
 v0.1
-
  - initial release
 
 v0.2
-
  - auto generate zip release ie. jdiskmark-v0.2.zip
  - added tabbed pane near bottom to organize new controls
  - format excessive decimal places
@@ -32,15 +30,24 @@ v0.2
  - default to nimbus look and feel
 
 v0.3
-
  - persist recent run with embedded derby db
  - remove "transfer mark number" from graph
  - changed graph background to dark gray
  - resizing main frame stretches tabbed pane instead of empty panel
 
+v0.4e
+ - updated eclipselink to 2.6 allows auto schema update
+ - improved gui initialization
+ - add path and drive type (usb, local) - works windows only
+
 desired features
 
- - hard drive specs, ie. manufacturer, size, speed
+ - hard drive specs, ie. manufacturer, model, capacity
+   on linux: "hdparm -I /dev/sda"
+   https://www.cyberciti.biz/faq/linux-getting-scsi-ide-harddisk-information/
+   http://unix.stackexchange.com/questions/5085/how-to-see-disk-details-like-manufacturer-in-linux
+   on windows: "wmic diskdrive get name,size,model"
+   https://whatsonmypc.wordpress.com/2011/09/01/wmic/
+   https://sourceforge.net/projects/jacob-project/
  - auto clear disk cache linux
  - auto clear disk cache windows
-

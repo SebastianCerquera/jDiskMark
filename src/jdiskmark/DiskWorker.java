@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -66,7 +68,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         int startFileNum = App.nextMarkNumber;
         
         if(App.writeTest) {
-            DiskRun run = new DiskRun(DiskRun.Type.WRITE, App.blockSequence);
+            DiskRun run = new DiskRun(DiskRun.IOMode.WRITE, App.blockSequence);
             run.numMarks = App.numOfMarks;
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
@@ -122,11 +124,15 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 App.updateMetrics(wMark);
                 publish(wMark);
                 
-                run.cumMax = wMark.cumMax;
-                run.cumMin = wMark.cumMin;
-                run.cumAvg = wMark.cumAvg;
+                run.runMax = wMark.cumMax;
+                run.runMin = wMark.cumMin;
+                run.runAvg = wMark.cumAvg;
                 run.endTime = new Date();
             }
+            
+            run.setDataPath(dataDir.getAbsolutePath());
+            Path dataDirPath = Paths.get(dataDir.getAbsolutePath());
+            run.setDriveType(Util.getDriveType(dataDirPath.getRoot().toFile()));
             
             EntityManager em = EM.getEntityManager();
             em.getTransaction().begin();
@@ -149,7 +155,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
         }
         
         if (App.readTest) {
-            DiskRun run = new DiskRun(DiskRun.Type.READ, App.blockSequence);
+            DiskRun run = new DiskRun(DiskRun.IOMode.READ, App.blockSequence);
             run.numMarks = App.numOfMarks;
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
@@ -197,9 +203,9 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 App.updateMetrics(rMark);
                 publish(rMark);
                 
-                run.cumMax = rMark.cumMax;
-                run.cumMin = rMark.cumMin;
-                run.cumAvg = rMark.cumAvg;
+                run.runMax = rMark.cumMax;
+                run.runMin = rMark.cumMin;
+                run.runAvg = rMark.cumAvg;
                 run.endTime = new Date();
             }
             Gui.runPanel.addRun(run);

@@ -106,6 +106,9 @@ public class App {
         return version;
     }
     
+    /**
+     * Initialize the GUI Application.
+     */
     public static void init() {
         Gui.mainFrame = new MainFrame();
         Gui.selFrame = new SelectFrame();
@@ -114,18 +117,19 @@ public class App {
         System.out.println(App.getConfigString());
         Gui.mainFrame.refreshConfig();
         Gui.mainFrame.setLocationRelativeTo(null);
-        Gui.mainFrame.setVisible(true);
         Gui.progressBar = Gui.mainFrame.getProgressBar();
+        
+        // configure the embedded DB in .jDiskMark
+        System.setProperty("derby.system.home", APP_CACHE_DIR);
+        loadSavedRuns();
+        
+        Gui.mainFrame.setVisible(true);
         
         // save configuration on exit...
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() { App.saveConfig(); }
         });
-        
-        // configure the embedded DB in .jDiskMark
-        System.setProperty("derby.system.home", APP_CACHE_DIR);
-        loadSavedRuns();
     }
     
     public static void loadConfig() {
