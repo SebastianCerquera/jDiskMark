@@ -48,7 +48,7 @@ public class RunPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Drive Type", "IO Mode", "Block Order", "Marks", "Blocks", "B. Size", "Tx Size", "Start Time", "Duration", "Max (MB/s)", "Min (MB/s)", "Avg (MB/s)"
+                "Disk Info", "IO Mode", "Block Order", "Marks", "Blocks", "B. Size", "Tx Size", "Start Time", "Duration", "Max (MB/s)", "Min (MB/s)", "Avg (MB/s)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -103,7 +103,7 @@ public class RunPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) this.runTable.getModel();
         model.addRow(
                 new Object[] {
-                    run.driveType,
+                    run.diskInfo,
                     run.ioMode,
                     run.blockOrder,
                     run.numMarks,

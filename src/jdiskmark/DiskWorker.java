@@ -15,8 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -73,6 +71,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
             run.txSize = App.targetTxSizeKb();
+            run.setDiskInfo(Util.getDiskInfo(dataDir));
             
             if (App.multiFile == false) {
                 testFile = new File(dataDir.getAbsolutePath()+File.separator+"testdata.jdm");
@@ -130,10 +129,6 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 run.endTime = new Date();
             }
             
-            run.setDataPath(dataDir.getAbsolutePath());
-            Path dataDirPath = Paths.get(dataDir.getAbsolutePath());
-            run.setDriveType(Util.getDriveType(dataDirPath.getRoot().toFile()));
-            
             EntityManager em = EM.getEntityManager();
             em.getTransaction().begin();
             em.persist(run);
@@ -160,6 +155,8 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
             run.numBlocks = App.numOfBlocks;
             run.blockSize = App.blockSizeKb;
             run.txSize = App.targetTxSizeKb();
+            run.setDiskInfo(Util.getDiskInfo(dataDir));
+            
             for (int m=startFileNum; m<startFileNum+App.numOfMarks && !isCancelled(); m++) {
                 
                 if (App.multiFile == true) {
@@ -208,6 +205,12 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 run.runAvg = rMark.cumAvg;
                 run.endTime = new Date();
             }
+            
+            EntityManager em = EM.getEntityManager();
+            em.getTransaction().begin();
+            em.persist(run);
+            em.getTransaction().commit();
+            
             Gui.runPanel.addRun(run);
         }
         App.nextMarkNumber += App.numOfMarks;      

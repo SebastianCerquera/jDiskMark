@@ -1,10 +1,14 @@
 
 package jdiskmark;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
@@ -118,5 +122,63 @@ public class Util {
     public static String getDriveType(File file) {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         return fsv.getSystemTypeDescription(file);
+    }
+    
+    /**
+     * Get OS specific disk info based on the drive the path is mapped to.
+     * @param dataDir the data directory being used in the run.
+     * @return Disk info if available.
+     */
+    public static String getDiskInfo(File dataDir) {
+        Path dataDirPath = Paths.get(dataDir.getAbsolutePath());
+        
+        if (System.getProperty("os.name").contains("Linux")) {
+            // get disk info for linux
+            return "implementation pending";
+        } else if (System.getProperty("os.name").contains("Windows")) {
+            // get disk info for windows
+            String driveLetter = dataDirPath.getRoot().toFile().toString().split(":")[0];
+            return Util.getModelFromLetter(driveLetter);
+        }
+        return "unknown";
+    }
+    
+    /**
+     * Get the drive model description based on the windows drive letter. 
+     * Uses the powershell script disk-model.ps1
+     * 
+     * @param driveLetter The single character drive letter.
+     * @return Disk Drive Model description or empty string if not found.
+     */
+    public static String getModelFromLetter(String driveLetter) {
+            try {
+                Process p = Runtime.getRuntime().exec("powershell -ExecutionPolicy ByPass -File disk-model.ps1");
+                p.waitFor();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line=reader.readLine();
+
+                String curDriveLetter = null;
+                String curDiskModel = null;
+                while (line != null) {
+                    System.out.println(line);
+                    if (line.trim().isEmpty()) {
+                        if (curDriveLetter != null && curDiskModel != null &&
+                                curDriveLetter.equalsIgnoreCase(driveLetter)) {
+                            return curDiskModel;
+                        }
+                    }
+                    if (line.contains("DriveLetter : ")) {
+                        curDriveLetter = line.split(" : ")[1].substring(0, 1);
+                        System.out.println("current letter=" + curDriveLetter);
+                    }
+                    if (line.contains("DiskModel   : ")) {
+                        curDiskModel = line.split(" : ")[1];
+                        System.out.println("current model="+curDiskModel);
+                    }
+                    line = reader.readLine();
+                }
+            }
+            catch(IOException | InterruptedException e) {}
+            return "";
     }
 }

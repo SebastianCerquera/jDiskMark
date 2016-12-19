@@ -1,7 +1,6 @@
 
 package jdiskmark;
 
-import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -44,10 +43,7 @@ public class DiskRun implements Serializable {
     
     // configuration
     @Column
-    String dataPath = null;
-    @Column
-    String driveType = null;
-    // TODO: add drive manufacturer / model number info
+    String diskInfo = null;
     @Column
     IOMode ioMode;
     @Column
@@ -137,19 +133,12 @@ public class DiskRun implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getDriveType(String type) {
-        return this.driveType;
+    public String getDiskInfo() {
+        return diskInfo;
     }
-    public void setDriveType(String type) {
-        driveType = type;
+    public void setDiskInfo(String info) {
+        diskInfo = info;
     }
-    public String getDataPath() {
-        return this.dataPath;
-    }
-    public void setDataPath(String path) {
-        dataPath = path;
-    }
-    
     
     // utility methods for collection
     

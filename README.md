@@ -38,16 +38,14 @@ v0.3
 v0.4e
  - updated eclipselink to 2.6 allows auto schema update
  - improved gui initialization
- - add path and drive type (usb, local) - works windows only
+ - windows hard disk model via powershell query
 
 desired features
 
- - hard drive specs, ie. manufacturer, model, capacity
+ - hard drive specs, ie. model
    on linux: "hdparm -I /dev/sda"
    https://www.cyberciti.biz/faq/linux-getting-scsi-ide-harddisk-information/
    http://unix.stackexchange.com/questions/5085/how-to-see-disk-details-like-manufacturer-in-linux
-   on windows: "wmic diskdrive get name,size,model"
-   https://whatsonmypc.wordpress.com/2011/09/01/wmic/
-   https://sourceforge.net/projects/jacob-project/
+ - hard disk capacity and drive letter (windows)
  - auto clear disk cache linux
  - auto clear disk cache windows
