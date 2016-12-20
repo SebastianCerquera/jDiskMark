@@ -138,7 +138,7 @@ public class Util {
             String devicePath = Util.getDeviceFromPath(dataDirPath);
             String deviceModel = Util.getDeviceModel(devicePath);
             String deviceSize = Util.getDeviceSize(devicePath);
-            return deviceModel + " " + deviceSize;
+            return deviceModel + " (" + deviceSize +")";
         } else if (System.getProperty("os.name").contains("Windows")) {
             // get disk info for windows
             String driveLetter = dataDirPath.getRoot().toFile().toString().split(":")[0];
