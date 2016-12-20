@@ -62,6 +62,7 @@ public final class Gui {
                 );
         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.DARK_GRAY);
+        ((NumberAxis) plot.getRangeAxis()).setAutoRangeIncludesZero(false);
         NumberAxis range = (NumberAxis) plot.getDomainAxis();
         range.setNumberFormatOverride(NumberFormat.getNumberInstance());
         chart.getTitle().setVisible(false);

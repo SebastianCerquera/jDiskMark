@@ -157,7 +157,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel2" max="32767" attributes="0"/>
           <Component id="progressPanel" alignment="1" max="32767" attributes="0"/>
-          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" pref="1000" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -276,7 +276,7 @@
                                           <Component id="numFilesCombo" alignment="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="orderComboBox" alignment="0" max="32767" attributes="0"/>
                                           <Component id="modeCombo" alignment="0" pref="94" max="32767" attributes="0"/>
-                                          <Component id="startButton" max="32767" attributes="0"/>
+                                          <Component id="startButton" pref="77" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -636,7 +636,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="locationText" min="-2" pref="480" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel15" pref="191" max="32767" attributes="0"/>
+                      <Component id="jLabel15" pref="278" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="chooseButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>

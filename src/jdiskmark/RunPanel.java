@@ -68,7 +68,7 @@ public class RunPanel extends javax.swing.JPanel {
             runTable.getColumnModel().getColumn(4).setPreferredWidth(10);
             runTable.getColumnModel().getColumn(5).setPreferredWidth(10);
             runTable.getColumnModel().getColumn(6).setPreferredWidth(10);
-            runTable.getColumnModel().getColumn(7).setPreferredWidth(95);
+            runTable.getColumnModel().getColumn(7).setPreferredWidth(100);
             runTable.getColumnModel().getColumn(8).setPreferredWidth(20);
             runTable.getColumnModel().getColumn(9).setPreferredWidth(32);
             runTable.getColumnModel().getColumn(10).setPreferredWidth(32);
