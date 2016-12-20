@@ -13,15 +13,15 @@ Get-WmiObject Win32_DiskDrive | % {
               "WHERE AssocClass = Win32_LogicalDiskToPartition"
     Get-WmiObject -Query $drives | % {
       New-Object -Type PSCustomObject -Property @{
-        Disk        = $disk.DeviceID
-        DiskSize    = $disk.Size
+        #Disk        = $disk.DeviceID
+        #DiskSize    = $disk.Size
         DiskModel   = $disk.Model
-        Partition   = $partition.Name
-        RawSize     = $partition.Size
+        #Partition   = $partition.Name
+        #RawSize     = $partition.Size
         DriveLetter = $_.DeviceID
-        VolumeName  = $_.VolumeName
-        Size        = $_.Size
-        FreeSpace   = $_.FreeSpace
+        #VolumeName  = $_.VolumeName
+        #Size        = $_.Size
+        #FreeSpace   = $_.FreeSpace
       }
     }
   }

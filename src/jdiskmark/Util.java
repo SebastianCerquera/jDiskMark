@@ -126,6 +126,7 @@ public class Util {
     
     /**
      * Get OS specific disk info based on the drive the path is mapped to.
+     * 
      * @param dataDir the data directory being used in the run.
      * @return Disk info if available.
      */
@@ -134,13 +135,16 @@ public class Util {
         
         if (System.getProperty("os.name").contains("Linux")) {
             // get disk info for linux
-            return "implementation pending";
+            String devicePath = Util.getDeviceFromPath(dataDirPath);
+            String deviceModel = Util.getDeviceModel(devicePath);
+            String deviceSize = Util.getDeviceSize(devicePath);
+            return deviceModel + " " + deviceSize;
         } else if (System.getProperty("os.name").contains("Windows")) {
             // get disk info for windows
             String driveLetter = dataDirPath.getRoot().toFile().toString().split(":")[0];
             return Util.getModelFromLetter(driveLetter);
         }
-        return "unknown";
+        return "Pending OS support";
     }
     
     /**
@@ -151,34 +155,114 @@ public class Util {
      * @return Disk Drive Model description or empty string if not found.
      */
     public static String getModelFromLetter(String driveLetter) {
-            try {
-                Process p = Runtime.getRuntime().exec("powershell -ExecutionPolicy ByPass -File disk-model.ps1");
-                p.waitFor();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line=reader.readLine();
+        try {
+            Process p = Runtime.getRuntime().exec("powershell -ExecutionPolicy ByPass -File disk-model.ps1");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line=reader.readLine();
 
-                String curDriveLetter = null;
-                String curDiskModel = null;
-                while (line != null) {
-                    System.out.println(line);
-                    if (line.trim().isEmpty()) {
-                        if (curDriveLetter != null && curDiskModel != null &&
-                                curDriveLetter.equalsIgnoreCase(driveLetter)) {
-                            return curDiskModel;
-                        }
+            String curDriveLetter = null;
+            String curDiskModel = null;
+            while (line != null) {
+                System.out.println(line);
+                if (line.trim().isEmpty()) {
+                    if (curDriveLetter != null && curDiskModel != null &&
+                            curDriveLetter.equalsIgnoreCase(driveLetter)) {
+                        return curDiskModel;
                     }
-                    if (line.contains("DriveLetter : ")) {
-                        curDriveLetter = line.split(" : ")[1].substring(0, 1);
-                        System.out.println("current letter=" + curDriveLetter);
-                    }
-                    if (line.contains("DiskModel   : ")) {
-                        curDiskModel = line.split(" : ")[1];
-                        System.out.println("current model="+curDiskModel);
-                    }
-                    line = reader.readLine();
                 }
+                if (line.contains("DriveLetter : ")) {
+                    curDriveLetter = line.split(" : ")[1].substring(0, 1);
+                    System.out.println("current letter=" + curDriveLetter);
+                }
+                if (line.contains("DiskModel   : ")) {
+                    curDiskModel = line.split(" : ")[1];
+                    System.out.println("current model="+curDiskModel);
+                }
+                line = reader.readLine();
             }
-            catch(IOException | InterruptedException e) {}
-            return "";
+        }
+        catch(IOException | InterruptedException e) {}
+        return null;
+    }
+    
+    /**
+     * On Linux OS get the device path when given a file path.
+     * eg.  filePath = /home/james/Desktop/jDiskMarkData
+     *      devicePath = /dev/sda
+     *      
+     * @param path the file path
+     * @return the device path
+     */
+    static public String getDeviceFromPath(Path path) {
+        try {
+            Process p = Runtime.getRuntime().exec("df "+path.toString());
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = reader.readLine();
+            String curDevice;
+            while (line != null) {
+                //System.out.println(line);
+                if (line.contains("/dev/")) {
+                    curDevice = line.split(" ")[0];
+                    // strip the partition digit if it is numeric
+                    if (curDevice.substring(curDevice.length()-1).matches("[0-9]{1}")) {
+                        curDevice = curDevice.substring(0,curDevice.length()-1);
+                    }
+                    return curDevice;
+                }
+                line = reader.readLine();
+            }
+        } catch(IOException | InterruptedException e) {}
+        return null;
+    }
+    
+    
+    /**
+     * On Linux OS use the lsblk command to get the disk model number for a 
+     * specific Device ie. /dev/sda
+     * 
+     * @param devicePath path of the device
+     * @return the disk model number
+     */
+    static public String getDeviceModel(String devicePath) {
+        try {
+            Process p = Runtime.getRuntime().exec("lsblk "+devicePath+" --output MODEL");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = reader.readLine();
+            while (line != null) {
+                //System.out.println(line);
+                if (!line.equals("MODEL") && !line.trim().isEmpty()) {
+                    return line;
+                }
+                line = reader.readLine();
+            }
+        } catch(IOException | InterruptedException e) {}
+        return null;
+    }
+    
+    /**
+     * On Linux OS use the lsblk command to get the disk size for a 
+     * specific Device ie. /dev/sda
+     * 
+     * @param devicePath path of the device
+     * @return the size of the device
+     */
+    static public String getDeviceSize(String devicePath) {
+        try {
+            Process p = Runtime.getRuntime().exec("lsblk "+devicePath+" --output SIZE");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = reader.readLine();
+            while (line != null) {
+                //System.out.println(line);
+                if (!line.contains("SIZE") && !line.trim().isEmpty()) {
+                    return line;
+                }
+                line = reader.readLine();
+            }
+        } catch(IOException | InterruptedException e) {}
+        return null;
     }
 }

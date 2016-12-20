@@ -38,14 +38,11 @@ v0.3
 v0.4e
  - updated eclipselink to 2.6 allows auto schema update
  - improved gui initialization
- - windows hard disk model via powershell query
+ - windows disk model via powershell query
+ - linux disk model via "df /data/path" & "lsblk /dev/path --output MODEL"
 
 desired features
-
- - hard drive specs, ie. model
-   on linux: "hdparm -I /dev/sda"
-   https://www.cyberciti.biz/faq/linux-getting-scsi-ide-harddisk-information/
-   http://unix.stackexchange.com/questions/5085/how-to-see-disk-details-like-manufacturer-in-linux
+ - osx disk model
  - hard disk capacity and drive letter (windows)
  - auto clear disk cache linux
  - auto clear disk cache windows
