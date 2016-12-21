@@ -35,14 +35,14 @@ v0.3
  - changed graph background to dark gray
  - resizing main frame stretches tabbed pane instead of empty panel
 
-v0.4e
+v0.4e (evaluation)
  - updated eclipselink to 2.6 allows auto schema update
  - improved gui initialization
  - windows disk model via powershell query
  - linux disk model via "df /data/path" & "lsblk /dev/path --output MODEL"
+ - osx disk model via "df /data/path" & "diskutil info /dev/disk1"
 
 desired features
- - osx disk model
  - hard disk capacity and drive letter (windows)
  - auto clear disk cache linux
  - auto clear disk cache windows

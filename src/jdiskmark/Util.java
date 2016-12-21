@@ -131,20 +131,26 @@ public class Util {
      * @return Disk info if available.
      */
     public static String getDiskInfo(File dataDir) {
+        System.out.println("os: "+System.getProperty("os.name"));
         Path dataDirPath = Paths.get(dataDir.getAbsolutePath());
-        
-        if (System.getProperty("os.name").contains("Linux")) {
+        String osName = System.getProperty("os.name");
+        if (osName.contains("Linux")) {
             // get disk info for linux
             String devicePath = Util.getDeviceFromPath(dataDirPath);
             String deviceModel = Util.getDeviceModel(devicePath);
             String deviceSize = Util.getDeviceSize(devicePath);
             return deviceModel + " (" + deviceSize +")";
-        } else if (System.getProperty("os.name").contains("Windows")) {
+        } else if (osName.contains("Mac OS X")) {
+            // get disk info for max os x
+            String devicePath = Util.getDeviceFromPathOSX(dataDirPath);
+            String deviceModel = Util.getDeviceModelOSX(devicePath);
+            return deviceModel;
+        } else if (osName.contains("Windows")) {
             // get disk info for windows
             String driveLetter = dataDirPath.getRoot().toFile().toString().split(":")[0];
             return Util.getModelFromLetter(driveLetter);
         }
-        return "Pending OS support";
+        return "OS not supported";
     }
     
     /**
@@ -259,6 +265,42 @@ public class Util {
                 //System.out.println(line);
                 if (!line.contains("SIZE") && !line.trim().isEmpty()) {
                     return line;
+                }
+                line = reader.readLine();
+            }
+        } catch(IOException | InterruptedException e) {}
+        return null;
+    }
+    
+    static public String getDeviceFromPathOSX(Path path) {
+        try {
+            Process p = Runtime.getRuntime().exec("df "+path.toString());
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = reader.readLine();
+            String curDevice;
+            while (line != null) {
+                //System.out.println(line);
+                if (line.contains("/dev/")) {
+                    curDevice = line.split(" ")[0];
+                    return curDevice;
+                }
+                line = reader.readLine();
+            }
+        } catch(IOException | InterruptedException e) {}
+        return null;
+    }
+    
+    static public String getDeviceModelOSX(String devicePath) {
+        try {
+            String command = "diskutil info "+devicePath;
+            Process p = Runtime.getRuntime().exec(command);
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = reader.readLine();
+            while (line != null) {               
+                if (line.contains("Device / Media Name:")) {
+                    return line.split("Device / Media Name:")[1].trim();
                 }
                 line = reader.readLine();
             }
