@@ -86,6 +86,7 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 wMark.markNum = m;
                 long startTime = System.nanoTime();
                 long totalBytesWrittenInMark = 0;
+                long io = 0;
 
                 String mode = "rw";
                 if (App.writeSyncEnable) { mode = "rwd"; }
@@ -100,8 +101,10 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                                 rAccFile.seek(b*blockSize);
                             }
                             rAccFile.write(blockArr, 0, blockSize);
+                            
                             totalBytesWrittenInMark += blockSize;
                             wUnitsComplete++;
+                            io++;
                             unitsComplete = rUnitsComplete + wUnitsComplete;
                             percentComplete = (float)unitsComplete/(float)unitsTotal * 100f;
                             setProgress((int)percentComplete);
@@ -120,6 +123,12 @@ public class DiskWorker extends SwingWorker <Boolean, DiskMark> {
                 msg("m:"+m+" write IO is "+wMark.getBwMbSec()+" MB/s     "
                         + "("+Util.displayString(mbWritten)+ "MB written in "
                         + Util.displayString(sec)+" sec)");
+
+                wMark.iops =  io/(long) sec;
+                msg("m:"+m+" write IO is "+wMark.getIOps()+" IOps     "
+                        + "("+Util.displayString(io)+ " writes in "
+                        + Util.displayString(sec)+" sec)");
+                
                 App.updateMetrics(wMark);
                 publish(wMark);
                 

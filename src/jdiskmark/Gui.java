@@ -13,6 +13,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 /**
  * Store gui references for easy access
@@ -22,8 +23,8 @@ public final class Gui {
     public static ChartPanel chartPanel = null;
     public static MainFrame mainFrame = null;
     public static SelectFrame selFrame = null;
-    public static XYSeries wSeries, wAvgSeries, wMaxSeries, wMinSeries;
-    public static XYSeries rSeries, rAvgSeries, rMaxSeries, rMinSeries;
+    public static XYSeries wSeries, wAvgSeries, wMaxSeries, wMinSeries, wIOps;
+    public static XYSeries rSeries, rAvgSeries, rMaxSeries, rMinSeries, rIOps;
     public static JFreeChart chart;
     public static JProgressBar progressBar = null;
     public static RunPanel runPanel = null;
@@ -34,11 +35,13 @@ public final class Gui {
         wAvgSeries = new XYSeries("Write Avg");
         wMaxSeries = new XYSeries("Write Max");
         wMinSeries = new XYSeries("Write Min");
+        wIOps = new XYSeries("Write operations per second");
         
         rSeries = new XYSeries("Reads");
         rAvgSeries = new XYSeries("Read Avg");
         rMaxSeries = new XYSeries("Read Max");
         rMinSeries = new XYSeries("Read Min");
+        rIOps = new XYSeries("Read operations per second");
         
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(wSeries);
@@ -49,12 +52,17 @@ public final class Gui {
         dataset.addSeries(rAvgSeries);
         dataset.addSeries(rMaxSeries);
         dataset.addSeries(rMinSeries);
+
+
+        XYSeriesCollection datasetIOps = new XYSeriesCollection();
+        datasetIOps.addSeries(wIOps);
+        datasetIOps.addSeries(rIOps);
         
         chart = ChartFactory.createXYLineChart(
                         "XY Chart", // Title
                         null, // x-axis Label
-                        "Bandwidth MB/s", // y-axis Label
-                        dataset, // Dataset
+                        null, // y-axis Label
+                        null, // Dataset
                         PlotOrientation.VERTICAL, // Plot Orientation
                         true,// Show Legend
                         true, // Use tooltips
@@ -62,9 +70,32 @@ public final class Gui {
                 );
         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.DARK_GRAY);
-        ((NumberAxis) plot.getRangeAxis()).setAutoRangeIncludesZero(false);
+
+
+        NumberAxis bandwithAxis = new NumberAxis("Bandwidth MB/s");
+        bandwithAxis.setAutoRangeIncludesZero(false);
+        
+        NumberAxis operationsAxis = new NumberAxis("Operations per second");
+        operationsAxis.setAutoRangeIncludesZero(false);
+            
+        plot.setRangeAxis(0, bandwithAxis);
+        plot.setRangeAxis(1, operationsAxis);
+
         NumberAxis range = (NumberAxis) plot.getDomainAxis();
         range.setNumberFormatOverride(NumberFormat.getNumberInstance());
+
+        plot.setDataset(0, dataset);
+        plot.setDataset(1, datasetIOps);
+        
+        plot.mapDatasetToRangeAxis(0, 0);
+        plot.mapDatasetToRangeAxis(1, 1);
+
+        XYLineAndShapeRenderer rendererBandwith = new XYLineAndShapeRenderer(); 
+        XYLineAndShapeRenderer rendererIOps = new XYLineAndShapeRenderer();
+
+        plot.setRenderer(0, rendererBandwith); 
+        plot.setRenderer(1, rendererIOps); 
+
         chart.getTitle().setVisible(false);
         chartPanel = new ChartPanel(chart) {
             // Only way to set the size of chart panel
@@ -75,19 +106,26 @@ public final class Gui {
             }
         };
         
-        plot.getRenderer().setSeriesPaint(0, Color.YELLOW);
-        plot.getRenderer().setSeriesPaint(1, Color.WHITE);
-        plot.getRenderer().setSeriesPaint(2, Color.GREEN);
-        plot.getRenderer().setSeriesPaint(3, Color.RED);
-        plot.getRenderer().setSeriesPaint(4, Color.LIGHT_GRAY);
-        plot.getRenderer().setSeriesPaint(5, Color.ORANGE);
-        plot.getRenderer().setSeriesPaint(6, Color.GREEN);
-        plot.getRenderer().setSeriesPaint(7, Color.RED);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(0, Color.YELLOW);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(1, Color.WHITE);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(2, Color.GREEN);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(3, Color.RED);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(4, Color.LIGHT_GRAY);
+        plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(5, Color.ORANGE);
+
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(0, Color.BLUE);
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(1, Color.WHITE);
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(2, Color.GREEN);
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(3, Color.RED);
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(4, Color.LIGHT_GRAY);
+        plot.getRendererForDataset(plot.getDataset(1)).setSeriesPaint(5, Color.YELLOW);
+        
         updateLegend();
         return chartPanel;
     }
     
     public static void addWriteMark(DiskMark mark) {
+        wIOps.add(mark.markNum, mark.iops);
         wSeries.add(mark.markNum, mark.bwMbSec);
         wAvgSeries.add(mark.markNum, mark.cumAvg);
         if (App.showMaxMin) {
@@ -98,6 +136,7 @@ public final class Gui {
         System.out.println(mark.toString());
     }
     public static void addReadMark(DiskMark mark) {
+        rIOps.add(mark.markNum, mark.iops);
         rSeries.add(mark.markNum, mark.bwMbSec);
         rAvgSeries.add(mark.markNum, mark.cumAvg);
         if (App.showMaxMin) {
@@ -109,6 +148,8 @@ public final class Gui {
     }
     
     public static void resetTestData() {
+        wIOps.clear();
+        rIOps.clear();
         wSeries.clear();
         rSeries.clear();
         wAvgSeries.clear();

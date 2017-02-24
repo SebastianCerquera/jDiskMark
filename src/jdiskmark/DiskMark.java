@@ -19,13 +19,18 @@ public class DiskMark {
     MarkType type;
     int markNum = 0;       // x-axis
     double bwMbSec = 0;    // y-axis
+    long iops = 0;
     double cumMin = 0;
     double cumMax = 0;
     double cumAvg = 0;
     
     @Override
     public String toString() {
-        return "Mark("+type+"): "+markNum+" bwMbSec: "+getBwMbSec()+" avg: "+getAvg();
+        return "Mark("+type+"): "+markNum+" bwMbSec: "+getBwMbSec()+" avg: "+getAvg() + " iops: "+getIOps();
+    }
+
+    String getIOps() {
+        return df.format(iops);
     }
     
     String getBwMbSec() {

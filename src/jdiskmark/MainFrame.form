@@ -430,6 +430,9 @@
                     <StringItem index="8" value="512"/>
                     <StringItem index="9" value="1024"/>
                     <StringItem index="10" value="2048"/>
+                    <StringItem index="11" value="4096"/>
+                    <StringItem index="12" value="8192"/>
+                    <StringItem index="13" value="16384"/>
                   </StringArray>
                 </Property>
                 <Property name="selectedIndex" type="int" value="8"/>

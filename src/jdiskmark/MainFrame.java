@@ -187,7 +187,7 @@ public final class MainFrame extends javax.swing.JFrame {
         jLabel6.setText("Block (KB)");
 
         blockSizeCombo.setEditable(true);
-        blockSizeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048" }));
+        blockSizeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384", "32768", "65536", "131072" }));
         blockSizeCombo.setSelectedIndex(8);
         blockSizeCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +205,7 @@ public final class MainFrame extends javax.swing.JFrame {
         jLabel8.setText("No. Marks");
 
         numFilesCombo.setEditable(true);
-        numFilesCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25", "50", "75", "100", "150", "200", "250" }));
+        numFilesCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25", "50", "75", "100", "150", "200", "250", "1000", "10000"  }));
         numFilesCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numFilesComboActionPerformed(evt);
